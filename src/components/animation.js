@@ -402,10 +402,12 @@ export var Component = registerComponent('animation', {
         // For animation timeline.
         if (value.x === lastValue.x &&
             value.y === lastValue.y &&
-            value.z === lastValue.z) { return; }
+            value.z === lastValue.z &&
+            value.w === lastValue.w) { return; }
         lastValue.x = value.x;
         lastValue.y = value.y;
         lastValue.z = value.z;
+        lastValue.w = value.w;
         setComponentProperty(el, data.property, value);
       };
     })();

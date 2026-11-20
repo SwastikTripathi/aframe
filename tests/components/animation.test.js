@@ -328,6 +328,29 @@ suite('animation', function () {
       assert.equal(el.components.dummy.data.vector.y, 0);
       assert.equal(el.components.dummy.data.vector.z, 0);
     });
+
+    test('can animate w of vec4 property of custom component', function () {
+      registerComponent('dummy', {
+        schema: {vector: {type: 'vec4'}}
+      });
+      el.setAttribute('dummy', '');
+      el.setAttribute('animation', {
+        property: 'dummy.vector',
+        dur: 1000,
+        from: '0 0 0 0',
+        to: '0 0 0 1'
+      });
+      component.tick(0, 1);
+      assert.equal(el.components.dummy.data.vector.w, 0);
+      component.tick(0, 500);
+      assert.ok(el.components.dummy.data.vector.w > 0);
+      assert.ok(el.components.dummy.data.vector.w < 1);
+      component.tick(0, 500);
+      assert.equal(el.components.dummy.data.vector.x, 0);
+      assert.equal(el.components.dummy.data.vector.y, 0);
+      assert.equal(el.components.dummy.data.vector.z, 0);
+      assert.equal(el.components.dummy.data.vector.w, 1);
+    });
   });
 
   suite('boolean animation', () => {
